@@ -14,4 +14,6 @@ If an item is a cons the cdr is a parameter, INTEGER=PIXEL REAL=PERCENTAGE
 The main function is CALC-LAYOUTS (layout size &optional (horizontal nil)(x 0)(y 0))
 which returns a list of (item (width . height)(x . y))
   size is a cons, e.g. '(1920 . 1080)
-  If horizontal is true, we start laying out horizontally first 
+  If horizontal is true, we start laying out horizontally first.
+  
+calc-sizes is provided if you just want dimensions, though i really don't see a need for it, so it might disappear.
