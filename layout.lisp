@@ -20,8 +20,10 @@
 	 ;; cons means division or param. if cdr is a symbol it's a param
 	 (cons   (if (listp (cdr item)) ; division?
 		     (progn   ; when division, push the whole division
-		       (push (cons item nil) result)
-		       (incf free))
+		       (let ((res (cons item nil)))
+			 (push res result)
+			 (when (eql free 0) (setf first-free res))
+			 (incf free)))
 		     (let* ((unit (car item))
 			    (param (cdr item))
 			    (measure (typecase param
@@ -74,11 +76,15 @@
 ;;this shouldn't be here, but here it is.
 #+life
 (defun preview-layout (layout &optional (divisor 4))
-  (loop :for (name size location) :in layout
-     :for colour :from 0 by 10000
-     :do (let* ((xwindows:*background* colour)
-		(view (view:view name :location `(,(floor (car location) divisor) . ,(floor (cdr location) divisor)))))
-	   (setf (view:dimensions-of view)`(,(floor (car size) divisor) . ,(floor (cdr size) divisor)))
-	   (view:update view)))
-   (sleep 3)
-   (elements:killall 'view))
+  (let* ((width (floor 1920 divisor)) ;let's make the wrong assumption that it's fullscreen
+	 (height (floor 1080 divisor))
+	 (container (view:view (xwindows:get-window :width width :height height))))
+    (xlib:map-window (view:surface-of container))
+    (loop :for (name size location) :in layout
+       :for colour :from 10000 by 10000
+       :do (let* ((xwindows:*background* colour)
+		  (xwindows::*default-parent* (view:surface-of container))
+		  (view (view:view name :location `(,(floor (car location) divisor) . ,(floor (cdr location) divisor)))))
+	     (setf (view:dimensions-of view)`(,(floor (car size) divisor) . ,(floor (cdr size) divisor)))
+	     (view:update view)))
+    container))
