@@ -73,6 +73,30 @@
 	       (setf result  (append (nreverse (calc-box box (if horizontal `(,size . ,width) `(,size . ,width)))) result))))
     (nreverse result)))
 
+(defun generate-layout (number &key (size '(1920 . 1080)) (type :phi)) ;fixme: use X11SCREEN for res
+  "Returns a LAYOUT that accomodates NUMBER views. :GRID and :PHI layouts currently supported."
+  (let ((layout '()))
+    (case type
+      (:phi (push (phi (- number 2)) layout))
+      (:grid (setf layout (grid number))))
+    (calc-layout layout size)))
+
+(defun phi (&optional (num 0))
+  (if (plusp num)
+      (list (cons (gensym) .618) (phi (1- num)))
+      (list (cons (gensym) .618) (gensym))))
+(defun gensym-list (num)
+  (loop :for i :below num
+     :collect (gensym)))
+(defun grid (num)
+  (let* ((divisions (isqrt num))
+	 (remainder (- num (* divisions divisions)))
+	 (result '()))
+    (dotimes (i divisions)
+      (push (gensym-list divisions) result))
+    (when (plusp remainder)(push (gensym-list remainder) result))
+    (list (nreverse result))))
+
 ;;this shouldn't be here, but here it is.
 #+life
 (defun preview-layout (layout &optional (divisor 4))
