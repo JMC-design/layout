@@ -49,5 +49,7 @@ EXAMPLES
 ['((A (B (C D)(E . 100))))](https://i.imgur.com/3B4CUSX.png)
 
 [generate-layout 5](https://i.imgur.com/nXe9lpl.png)
+
 [generate-layout 12 :type :grid](https://i.imgur.com/ggXhBFK.png)
+
 [generate-layout 15 :type :grid](https://i.imgur.com/mQRCFQw.png)
