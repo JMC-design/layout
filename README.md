@@ -16,7 +16,11 @@ which returns a list of (item (width . height)(x . y))
   size is a cons, e.g. '(1920 . 1080)
   If horizontal is true, we start laying out horizontally first, caveat width and height need to be switched.
   
-calc-sizes is provided if you just want dimensions, though i really don't see a need for it, so it might disappear.
+CALC-SIZES is provided if you just want dimensions, though i really don't see a need for it, so it might disappear.
+
+GENERATE-LAYOUT (number &key (type (or :phi :grid)))
+Generates a layout that will accomadate NUMBER of views based on phi(default) or grid layout. Numbers that are not squares have
+the remainder dumped into a column on the right.
 
 EXAMPLES
 
@@ -43,3 +47,7 @@ EXAMPLES
     ((A (960 . 1080) (0 . 0)) (B (960 . 490) (960 . 0)) (C (480 . 490) (960 . 490))
     (D (480 . 490) (1440 . 490)) (E (960 . 100) (960 . 980)))
 ['((A (B (C D)(E . 100))))](https://i.imgur.com/3B4CUSX.png)
+
+[generate-layout 5](https://i.imgur.com/nXe9lpl.png)
+[generate-layout 12 :type :grid](https://i.imgur.com/ggXhBFK.png)
+[generate-layout 15 :type :grid](https://i.imgur.com/mQRCFQw.png)
