@@ -1,7 +1,7 @@
 # layout
 Simple tool to calculate application layouts
 
-Layouts are lists of items that default to being layed out vertically. 
+Layouts are lists of items that default to being layed out vertically*. 
   e.g '(a b c) All three items occupy equal amounts of vertical space, and full horizontal.
   
 If an item is a proper list direction of layout is switched, i.e., each level of nesting flips between horizontal and vertical layout. 
@@ -21,6 +21,8 @@ CALC-SIZES is provided if you just want dimensions, though i really don't see a 
 GENERATE-LAYOUT (number &key (type (or :phi :grid)))
 Generates a layout that will accomadate NUMBER of views based on phi(default) or grid layout. Numbers that are not squares have
 the remainder dumped into a column on the right.
+
+\* default direction of layout may change. Widescreens make horizontal layouts logical for desktops, applications seem to be more vertical layouts.
 
 EXAMPLES
 
