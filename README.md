@@ -9,7 +9,7 @@ If an item is a list, that list is layed out horizontally.
   
 If an item is a cons the cdr is a parameter, INTEGER=PIXEL REAL=PERCENTAGE 
   e.g. (a (b . 60)) B takes up 60 pixels vertically, remainder to A
-       (a (b . .6)) B takes up 60 percent of vertical height remainder to A
+       (a (b . 0.6)) B takes up 60 percent of vertical height remainder to A
 
 The main function is CALC-LAYOUT (layout size &optional (horizontal nil)(x 0)(y 0))
 which returns a list of (item (width . height)(x . y))
@@ -34,7 +34,7 @@ EXAMPLES
     (C (640 . 1080) (1280 . 0)))
 ['((A B C))](https://i.imgur.com/oilyRXr.png)
 
-    (calc-layout '((a . .80) (b c d))'(1920 . 1080))
+    (calc-layout '((a . 0.80) (b c d))'(1920 . 1080))
     ((A (1920 . 864) (0 . 0)) (B (640 . 216) (0 . 864)) (C (640 . 216) (640 . 864))
     (D (640 . 216) (1280 . 864)))
 ['((A . .80)(B C D))](https://i.imgur.com/zePdbOk.png)
