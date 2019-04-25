@@ -4,7 +4,7 @@ Simple tool to calculate application layouts
 Layouts are lists of items that default to being layed out vertically. 
   e.g '(a b c) All three items occupy equal amounts of vertical space, and full horizontal.
   
-If an item is a list, that list is layed out horizontally. 
+If an item is a proper list direction of layout is switched, i.e., each level of nesting flips between horizontal and vertical layout. 
   e.g. '(a b (c d)) A+B both occupy 33% vertically, C+D occupy the last vertical third, with 50% of width.
   
 If an item is a cons the cdr is a parameter, INTEGER=PIXEL REAL=PERCENTAGE 
